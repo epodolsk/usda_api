@@ -11,11 +11,12 @@
 
 
     <title>Guide to the USDA Nutrient Database API</title>
+
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
 <div class="container">
     <div class="col-md-2">
-        <nav id="toc" data-spy="affix" data-toggle="toc"></nav>
+        <nav id="toc" data-spy="affix"></nav>
     </div>
     <div class="col-md-10">
 
@@ -173,7 +174,7 @@
                 that element. There is a way to get a list of nutrients with their correspond nutrient_id values, which
                 is
                 described below, but for now, here are the most common ones:</p>
-            <table>
+            <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Nutrient</th>
@@ -343,5 +344,15 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
+<script>
+    $(function() {
+        var navSelector = '#toc';
+        var $myNav = $(navSelector);
+        Toc.init($myNav);
+        $('body').scrollspy({
+            target: navSelector
+        });
+    });
+</script>
 </body>
 </html>

@@ -5,3 +5,7 @@
 nav[data-toggle='toc'] {
     margin-top: 30px;
 }
+
+body {
+    position: relative;
+}
