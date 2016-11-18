@@ -15,327 +15,405 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-md-2">
-        <nav id="toc" data-spy="affix"></nav>
-    </div>
-    <div class="col-md-10">
+    <div class="row">
+        <div class="col-md-2">
+            <nav id="toc" data-spy="affix"></nav>
+        </div>
+        <div class="col-md-10">
 
-        <h1>Guide to the USDA Nutrient Database API</h1>
-        <section>
-            <h2>Introduction</h2>
-            <p>The USDA Food Composition Databases are a vast collection of various generic and branded foods and their
-                nutritional information. In an effort to provide Americans with the information needed to make healthy
-                dietary
-                choices, the databases give information regarding the calorie, macronutrient, and micronutrient content
-                of
-                many
-                foods.</p>
-            <h3>Getting an API Key</h3>
-            <p>To get an access to the USDA Nutrient Database API, you first need to get an API key. This key is used to
-                trace
-                who is making requests to the API and limit the number of request from any given user. Because the
-                databases
-                are
-                a subset of the Data.gov project, an API key must be acquired at their <a href="https://api.data.gov/signup/">sign-up page</a>.
-                Incidentally, the API key you get from Data.gov can also be used to access the
-                various other U.S. Government APIs, such as those of the FDA, NASA, and the FCC. When you sign up, you
-                will
-                immediately receive a key by e-mail, which you can then incorporate into your requests.</p>
-            <h3>Limitations</h3>
-            <p>Because it is a government project, there are few limitations on the use of the database for anyone. It
-                is
-                free
-                to use, and it is in the public domain, so it can be used without permission in your own projects.</p>
-            <p>There are, however, a couple caveats. First, any given API key is limited to 1,000 requests per hour. As
-                the
-                API
-                documentation explains, this shouldn’t be an issue if you incorporate the API key acquisition process as
-                part of
-                the registration process in your app, so that every user has his/her own key. If you do manage to exceed
-                the
-                rate limit, you will be blocked from the database for one hour, so keep that in consideration. If you
-                genuinely
-                need more than 1,000 requests per hour per API key, the writers of the documentation recommend
-                contacting
-                them
-                for an increase. The contact information can be found <a href="https://www.ars.usda.gov/northeast-area/beltsville-md/beltsville-human-nutrition-research-center/nutrient-data-laboratory/docs/how-to-get-information-from-ndl/">here.</a>
+            <h1>Guide to the USDA Nutrient Database API</h1>
+            <section>
+                <h2>Introduction</h2>
+                <p>The USDA Food Composition Databases are a vast collection of various generic and branded foods and
+                    their
+                    nutritional information. In an effort to provide Americans with the information needed to make
+                    healthy
+                    dietary
+                    choices, the databases give information regarding the calorie, macronutrient, and micronutrient
+                    content
+                    of
+                    many
+                    foods.</p>
+                <h3>Getting an API Key</h3>
+                <p>To get an access to the USDA Nutrient Database API, you first need to get an API key. This key is
+                    used to
+                    trace
+                    who is making requests to the API and limit the number of request from any given user. Because the
+                    databases
+                    are
+                    a subset of the Data.gov project, an API key must be acquired at their <a
+                            href="https://api.data.gov/signup/">sign-up page</a>.
+                    Incidentally, the API key you get from Data.gov can also be used to access the
+                    various other U.S. Government APIs, such as those of the FDA, NASA, and the FCC. When you sign up,
+                    you
+                    will
+                    immediately receive a key by e-mail, which you can then incorporate into your requests.</p>
+                <h3>Limitations</h3>
+                <p>Because it is a government project, there are few limitations on the use of the database for anyone.
+                    It
+                    is
+                    free
+                    to use, and it is in the public domain, so it can be used without permission in your own
+                    projects.</p>
+                <p>There are, however, a couple caveats. First, any given API key is limited to 1,000 requests per hour.
+                    As
+                    the
+                    API
+                    documentation explains, this shouldn’t be an issue if you incorporate the API key acquisition
+                    process as
+                    part of
+                    the registration process in your app, so that every user has his/her own key. If you do manage to
+                    exceed
+                    the
+                    rate limit, you will be blocked from the database for one hour, so keep that in consideration. If
+                    you
+                    genuinely
+                    need more than 1,000 requests per hour per API key, the writers of the documentation recommend
+                    contacting
+                    them
+                    for an increase. The contact information can be found <a
+                            href="https://www.ars.usda.gov/northeast-area/beltsville-md/beltsville-human-nutrition-research-center/nutrient-data-laboratory/docs/how-to-get-information-from-ndl/">here.</a>
                 </p>
-            .<p>
-            In addition, although citations are not required, the documentation authors list a couple ways to cite the
-            database
-            if you are so inclined:
-            <ul>
-            <li>U.S. Department of Agriculture, Agricultural Research Service. 20xx. USDA National Nutrient Database for
-            Standard
-            Reference, Release . Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/nutrientdata</li>
-            <li>U.S. Department of Agriculture, Agricultural Research Service. 20xx. USDA Branded Food Products Database .
-            Nutrient Data Laboratory Home Page, http://ndb.nal.usda.gov</li></ul></p>
-            <h3>Type of Reports</h3>
-            <p>The database provides two main types of reports: food reports and nutrient reports.</p>
-            <p>Food reports are reports that list the nutritional information of specific foods in the database. Your
-                request
-                will specify which food you’re interested in, and you’ll get back a response containing the nutritional
-                information for that food.</p>
-            <p>The other kind of report is a nutrient report. In this report, you specify which nutrient you’re
-                interested
-                in,
-                and the response is a list of foods with how much of the nutrient they contain. The list of foods can
-                include
-                all the foods in the database, or it can be limited to specific food groups.</p>
-            <p>To help you figure out how these types of reports work without having to build your own app, the USDA
-                website
-                provides browser-based search tools that let you generate both kinds of reports. Here are the pages for
-                <a href="https://ndb.nal.usda.gov/ndb/search/list">food
-                reports</a> and <a href="https://ndb.nal.usda.gov/ndb/nutrients/index">nutrient reports.</a></p>
-            <p>Now that you know how to get access to the database with your own API key and what type of information
+                .<p>
+                In addition, although citations are not required, the documentation authors list a couple ways to cite
                 the
-                database can give you, let’s get into the <a href="https://ndb.nal.usda.gov/ndb/foods/show/3771?manu=&fgcd=&ds=">meat</a>
-                and <a href="https://ndb.nal.usda.gov/ndb/foods/show/3084?manu=&fgcd=&ds=">potatoes</a> of how to format your API
-                requests
-                to take advantage of the database.</p></section>
-        <section><h2>User Guide</h2>
-            <p>All the requests from the Nutrient Databases are formatted as GET requests. The base URL for all requests
-                is
-                http://api.nal.usda.gov/ndb/ with a variety of parameters that you can add on to the end. As explained
-                above,
-                there are a couple types of reports you can get back from the database. This section will explain how to
-                request
-                both food reports and nutrient reports.</p>
-            <h3>Food Reports</h3>
-            <p>Food report requests are very simple to create, given that you already know the NDB number of the food
-                you’re
-                looking for. There are only four parameters for a simple food report request, and only two are really
-                required.</p>
-            <p>First, you need your API key, which is specified in the api_key parameter. And second, you need the NDB
-                number.
-                This is a unique identification number that every food in the database has. For example, the NDB number
-                for
-                a
-                generic regular crust 14” cheese pizza is 21299. To search for the nutritional information for cheese
-                pizza,
-                you
-                would then use the parameter ndbno. Finally, there are two optional parameters. The first is the type,
-                which
-                specifies how detailed you want the food report to be. The type can either be basic, which is the
-                information
-                you would find on a nutrition label; full, which contains additional nutrients that appear in the
-                database;
-                and
-                statistical, which provides detailed statistical information about the nutrients. Note that branded
-                products
-                will only have a basic report, no matter what type you specify. The last parameter is the format, which
-                is
-                either XML or JSON. However, this can also be specified in the request header. So, enough talk, let’s
-                see
-                how we
-                can make an AJAX request to find out how many calories are in a slice of pizza.</p>
-            <p>To start out, we can assign our API key to a variable to make it easy to reference it later. For this
-                purpose, I
-                will use the demonstration key provided by the API documentation, although you would use your Data.gov
-                API
-                key
-                for your own app.</p>
-            <p><code>var APIkey = "DEMO_KEY";</code></p>
-            <p>Now, let’s create a new <code>XMLHttpRequest()</code> object so that we have an interface to communicate with the
-                database’s
-                servers.</p>
-            <p><code>var req = new XMLHttpRequest();</code></p>
-            <p>How will we format our request? We know our API key and our NDB number from above. We also only need a
-                basic
-                report because calories (energy) are listed on a nutrition label. Finally, we can request our report in
-                JSON
-                format so that we can easily use the response in our app. Here’s how it looks fully assembled:
-                <a href="http://api.nal.usda.gov/ndb/reports/?api_key=DEMO_KEY&ndbno=21299&type=b&format=json">link</a>.</p>
-            <p>If you follow that link, you should see a report for the nutritional information for a 14” cheese pizza.
-                Let’s
-                get Javascript to initialize an asynchronous GET request to that URL for us:</p>
-            <p><code>req.open(“GET”, “http://api.nal.usda.gov/ndb/reports/?api_key=” + APIKEY +
-                “&ndbno=21299&type=b&format=json”,
-                true);</code></p>
-            <p>Now we can add how we’re going to parse the response and extract the information we want. Because it is
-                an
-                asynchronous request, we will start by adding a listener to our req object:</p>
-            <p><code>req.addEventListener(“load”, function(event){});</code></p>
+                database
+                if you are so inclined:
+                <ul>
+                    <li>U.S. Department of Agriculture, Agricultural Research Service. 20xx. USDA National Nutrient
+                        Database for
+                        Standard
+                        Reference, Release . Nutrient Data Laboratory Home Page, http://www.ars.usda.gov/nutrientdata
+                    </li>
+                    <li>U.S. Department of Agriculture, Agricultural Research Service. 20xx. USDA Branded Food Products
+                        Database .
+                        Nutrient Data Laboratory Home Page, http://ndb.nal.usda.gov
+                    </li>
+                </ul>
+                </p>
+                <h3>Type of Reports</h3>
+                <p>The database provides two main types of reports: food reports and nutrient reports.</p>
+                <p>Food reports are reports that list the nutritional information of specific foods in the database.
+                    Your
+                    request
+                    will specify which food you’re interested in, and you’ll get back a response containing the
+                    nutritional
+                    information for that food.</p>
+                <p>The other kind of report is a nutrient report. In this report, you specify which nutrient you’re
+                    interested
+                    in,
+                    and the response is a list of foods with how much of the nutrient they contain. The list of foods
+                    can
+                    include
+                    all the foods in the database, or it can be limited to specific food groups.</p>
+                <p>To help you figure out how these types of reports work without having to build your own app, the USDA
+                    website
+                    provides browser-based search tools that let you generate both kinds of reports. Here are the pages
+                    for
+                    <a href="https://ndb.nal.usda.gov/ndb/search/list">food
+                        reports</a> and <a href="https://ndb.nal.usda.gov/ndb/nutrients/index">nutrient reports.</a></p>
+                <p>Now that you know how to get access to the database with your own API key and what type of
+                    information
+                    the
+                    database can give you, let’s get into the <a
+                            href="https://ndb.nal.usda.gov/ndb/foods/show/3771?manu=&fgcd=&ds=">meat</a>
+                    and <a href="https://ndb.nal.usda.gov/ndb/foods/show/3084?manu=&fgcd=&ds=">potatoes</a> of how to
+                    format your API
+                    requests
+                    to take advantage of the database.</p></section>
+            <section><h2>User Guide</h2>
+                <p>All the requests from the Nutrient Databases are formatted as GET requests. The base URL for all
+                    requests
+                    is
+                    http://api.nal.usda.gov/ndb/ with a variety of parameters that you can add on to the end. As
+                    explained
+                    above,
+                    there are a couple types of reports you can get back from the database. This section will explain
+                    how to
+                    request
+                    both food reports and nutrient reports.</p>
+                <h3>Food Reports</h3>
+                <p>Food report requests are very simple to create, given that you already know the NDB number of the
+                    food
+                    you’re
+                    looking for. There are only four parameters for a simple food report request, and only two are
+                    really
+                    required.</p>
+                <p>First, you need your API key, which is specified in the api_key parameter. And second, you need the
+                    NDB
+                    number.
+                    This is a unique identification number that every food in the database has. For example, the NDB
+                    number
+                    for
+                    a
+                    generic regular crust 14” cheese pizza is 21299. To search for the nutritional information for
+                    cheese
+                    pizza,
+                    you
+                    would then use the parameter ndbno. Finally, there are two optional parameters. The first is the
+                    type,
+                    which
+                    specifies how detailed you want the food report to be. The type can either be basic, which is the
+                    information
+                    you would find on a nutrition label; full, which contains additional nutrients that appear in the
+                    database;
+                    and
+                    statistical, which provides detailed statistical information about the nutrients. Note that branded
+                    products
+                    will only have a basic report, no matter what type you specify. The last parameter is the format,
+                    which
+                    is
+                    either XML or JSON. However, this can also be specified in the request header. So, enough talk,
+                    let’s
+                    see
+                    how we
+                    can make an AJAX request to find out how many calories are in a slice of pizza.</p>
+                <p>To start out, we can assign our API key to a variable to make it easy to reference it later. For this
+                    purpose, I
+                    will use the demonstration key provided by the API documentation, although you would use your
+                    Data.gov
+                    API
+                    key
+                    for your own app.</p>
+                <p><code>var APIkey = "DEMO_KEY";</code></p>
+                <p>Now, let’s create a new <code>XMLHttpRequest()</code> object so that we have an interface to
+                    communicate with the
+                    database’s
+                    servers.</p>
+                <p><code>var req = new XMLHttpRequest();</code></p>
+                <p>How will we format our request? We know our API key and our NDB number from above. We also only need
+                    a
+                    basic
+                    report because calories (energy) are listed on a nutrition label. Finally, we can request our report
+                    in
+                    JSON
+                    format so that we can easily use the response in our app. Here’s how it looks fully assembled:
+                    <a href="http://api.nal.usda.gov/ndb/reports/?api_key=DEMO_KEY&ndbno=21299&type=b&format=json">link</a>.
+                </p>
+                <p>If you follow that link, you should see a report for the nutritional information for a 14” cheese
+                    pizza.
+                    Let’s
+                    get Javascript to initialize an asynchronous GET request to that URL for us:</p>
+                <p><code>req.open(“GET”, “http://api.nal.usda.gov/ndb/reports/?api_key=” + APIKEY +
+                    “&ndbno=21299&type=b&format=json”,
+                    true);</code></p>
+                <p>Now we can add how we’re going to parse the response and extract the information we want. Because it
+                    is
+                    an
+                    asynchronous request, we will start by adding a listener to our req object:</p>
+                <p><code>req.addEventListener(“load”, function(event){});</code></p>
                 <p>And now we can replace the function with one that actually reads the response from the request:</p>
                 <p><code>req.addEventListener(“load”, function(event){
-                var response = JSON.parse(req.responseText);
-                });</code></p>
-            <p>Finally, we want to extract the information about the calories in a slice of pizza from our response
-                objects.
-                This is where it gets a little more complicated. Because the basic report gives us information about a
-                variety
-                of nutrients, we have to figure out how to find the “energy” nutrient. The least ambiguous way to access
-                the
-                nutrients (and the only way to access them via the API) is with a nutrient_id. This makes things a
-                little
-                more
-                difficult because, like your ndbno, you need to know your nutrient_id before you can access information
-                about
-                that element. There is a way to get a list of nutrients with their correspond nutrient_id values, which
-                is
-                described below, but for now, here are the most common ones:</p>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Nutrient</th>
-                    <th>ID</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Calories</td>
-                    <td>208</td>
-                </tr>
-                <tr>
-                    <td>Fat</td>
-                    <td>204</td>
-                </tr>
-                <tr>
-                    <td>Carbohydrates</td>
-                    <td>205</td>
-                </tr>
-                <tr>
-                    <td>Protein</td>
-                    <td>203</td>
-                </tr>
-                </tbody>
-            </table>
-            <p>Now that we know the nutrient_id, we can use it to find the information for our given nutrient. To help
-                you
-                follow along, you may want to open the URL for the API request above.</p>
-            <p>We start at the report key, which contains the entire report. Then, we move down to the food key, which
-                contains
-                all the information about the food rather than any metadata. Since we’re interested in nutrient
-                information,
-                we
-                move to the nutrients key, which points an array of objects for various nutrients. We now need to find
-                the
-                one
-                with the correct nutrient_id, which we can do using Javascript’s Array.prototype.find() function (see
-                the
-                documentation for this function to find out how it works). Then, we move down to the next key, called
-                measures,
-                which is another array that contains the different ways the food can be measured in the label attribute.
-                So,
-                we
-                can once again search this array for the measure with the label of “slice”. Finally, we access the value
-                attribute, which is the caloric content of one slice of cheese pizza.</p>
-            <p>Here is a Javascript version of that last paragraph:</p>
-            <p><code>var energy = response.report.food.nutrients.find(function(nutrient) { <br />
-                return nutrient.nutrient_id=="208"; <br />
-                }).measures.find(function(measure) {
-                return measure.label=="slice"; <br />
-                }).value;</code></p>
-            <p>After all that, we now have our caloric content saved in a variable, called energy. We can add that to
-                our
-                event
-                listener, along with a console.log() so we can see what the value is in the end.</p>
-            <p><code>req.addEventListener(“load”, function(event){
-                var response = JSON.parse(req.responseText);<br />
-                var energy = response.report.food.nutrients.find(function(nutrient) { <br />
-                return nutrient.nutrient_id=="208";
-                }).measures.find(function(measure) {
-                return measure.label=="slice";
-                }).value; <br />
-                console.log(“Cheese pizza has” + energy + “ calories per slice!”); <br />
-                });</code></p>
-            <p>Now that our listener is set up to parse our response, we can safely send our request:</p>
+                    var response = JSON.parse(req.responseText);
+                    });</code></p>
+                <p>Finally, we want to extract the information about the calories in a slice of pizza from our response
+                    objects.
+                    This is where it gets a little more complicated. Because the basic report gives us information about
+                    a
+                    variety
+                    of nutrients, we have to figure out how to find the “energy” nutrient. The least ambiguous way to
+                    access
+                    the
+                    nutrients (and the only way to access them via the API) is with a nutrient_id. This makes things a
+                    little
+                    more
+                    difficult because, like your ndbno, you need to know your nutrient_id before you can access
+                    information
+                    about
+                    that element. There is a way to get a list of nutrients with their correspond nutrient_id values,
+                    which
+                    is
+                    described below, but for now, here are the most common ones:</p>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Nutrient</th>
+                        <th>ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Calories</td>
+                        <td>208</td>
+                    </tr>
+                    <tr>
+                        <td>Fat</td>
+                        <td>204</td>
+                    </tr>
+                    <tr>
+                        <td>Carbohydrates</td>
+                        <td>205</td>
+                    </tr>
+                    <tr>
+                        <td>Protein</td>
+                        <td>203</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>Now that we know the nutrient_id, we can use it to find the information for our given nutrient. To
+                    help
+                    you
+                    follow along, you may want to open the URL for the API request above.</p>
+                <p>We start at the report key, which contains the entire report. Then, we move down to the food key,
+                    which
+                    contains
+                    all the information about the food rather than any metadata. Since we’re interested in nutrient
+                    information,
+                    we
+                    move to the nutrients key, which points an array of objects for various nutrients. We now need to
+                    find
+                    the
+                    one
+                    with the correct nutrient_id, which we can do using Javascript’s Array.prototype.find() function
+                    (see
+                    the
+                    documentation for this function to find out how it works). Then, we move down to the next key,
+                    called
+                    measures,
+                    which is another array that contains the different ways the food can be measured in the label
+                    attribute.
+                    So,
+                    we
+                    can once again search this array for the measure with the label of “slice”. Finally, we access the
+                    value
+                    attribute, which is the caloric content of one slice of cheese pizza.</p>
+                <p>Here is a Javascript version of that last paragraph:</p>
+                <p><code>var energy = response.report.food.nutrients.find(function(nutrient) { <br/>
+                    return nutrient.nutrient_id=="208"; <br/>
+                    }).measures.find(function(measure) {
+                    return measure.label=="slice"; <br/>
+                    }).value;</code></p>
+                <p>After all that, we now have our caloric content saved in a variable, called energy. We can add that
+                    to
+                    our
+                    event
+                    listener, along with a console.log() so we can see what the value is in the end.</p>
+                <p><code>req.addEventListener(“load”, function(event){
+                    var response = JSON.parse(req.responseText);<br/>
+                    var energy = response.report.food.nutrients.find(function(nutrient) { <br/>
+                    return nutrient.nutrient_id=="208";
+                    }).measures.find(function(measure) {
+                    return measure.label=="slice";
+                    }).value; <br/>
+                    console.log(“Cheese pizza has” + energy + “ calories per slice!”); <br/>
+                    });</code></p>
+                <p>Now that our listener is set up to parse our response, we can safely send our request:</p>
 
-            <p><code>req.send(null);</code></p>
+                <p><code>req.send(null);</code></p>
 
-            <p>And that’s it! If you run that all in Javascript, you should see “Cheese pizza has 285 calories per
-                slice!”
-                in
-                the console.</p>
+                <p>And that’s it! If you run that all in Javascript, you should see “Cheese pizza has 285 calories per
+                    slice!”
+                    in
+                    the console.</p>
 
-            <p><a href="https://ndb.nal.usda.gov/ndb/doc/apilist/API-FOOD-REPORT.md">Click here</a> for a list of all the other response elements.
-                Now let’s look at the other type of report.
-            </p>
-            <h3>Nutrient Reports</h3>
+                <p><a href="https://ndb.nal.usda.gov/ndb/doc/apilist/API-FOOD-REPORT.md">Click here</a> for a list of
+                    all the other response elements.
+                    Now let’s look at the other type of report.
+                </p>
+                <h3>Nutrient Reports</h3>
 
-            <p>The database also allows you to make a request for a nutrient report, which allows you to list foods with
-                their
-                content of a specific nutrient (or nutrients). This list can range from all the foods in the database, a
-                specific food group, or one specific food. So, instead of searching through the JSON to find the
-                calories
-                for
-                cheese pizza like we did above, we could specify that we want the API to only return information for
-                energy
-                (nutrient_id=208).
-            </p>
-            <p>If you navigate to <a href="https://ndb.nal.usda.gov/ndb/doc/apilist/API-NUTRIENT-REPORT.md">the nutrient report documentation</a>, you will see the full
-                list of
-                parameters you can send in the request, which includes food group, nutrient (required), sort order (by
-                food
-                name
-                or nutrient content), the number of items to display, and the NDB number (if you have a specific food in
-                mind).</p>
+                <p>The database also allows you to make a request for a nutrient report, which allows you to list foods
+                    with
+                    their
+                    content of a specific nutrient (or nutrients). This list can range from all the foods in the
+                    database, a
+                    specific food group, or one specific food. So, instead of searching through the JSON to find the
+                    calories
+                    for
+                    cheese pizza like we did above, we could specify that we want the API to only return information for
+                    energy
+                    (nutrient_id=208).
+                </p>
+                <p>If you navigate to <a href="https://ndb.nal.usda.gov/ndb/doc/apilist/API-NUTRIENT-REPORT.md">the
+                    nutrient report documentation</a>, you will see the full
+                    list of
+                    parameters you can send in the request, which includes food group, nutrient (required), sort order
+                    (by
+                    food
+                    name
+                    or nutrient content), the number of items to display, and the NDB number (if you have a specific
+                    food in
+                    mind).</p>
 
-            <p>Let’s say you’re trying to get ripped, and you wanted to find out which food has the most protein per
-                serving.
-                How would we format the request? We want to search for protein (nutrient_id=203 from the table above),
-                and
-                we
-                are not limited to a specific food group. In order to get the item with the most protein, we need to
-                sort by
-                nutrient content, which is signified by the value c. Here’s how our request would look:
-                <a href="http://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=DEMO_KEY&nutrients=203&sort=c">link</a>.</p>
+                <p>Let’s say you’re trying to get ripped, and you wanted to find out which food has the most protein per
+                    serving.
+                    How would we format the request? We want to search for protein (nutrient_id=203 from the table
+                    above),
+                    and
+                    we
+                    are not limited to a specific food group. In order to get the item with the most protein, we need to
+                    sort by
+                    nutrient content, which is signified by the value c. Here’s how our request would look:
+                    <a href="http://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=DEMO_KEY&nutrients=203&sort=c">link</a>.
+                </p>
 
-            <p>If we then set up our AJAX request like we did last time, we will find what we’re looking for using the
-                following
-                properties of our response:</p>
+                <p>If we then set up our AJAX request like we did last time, we will find what we’re looking for using
+                    the
+                    following
+                    properties of our response:</p>
                 <p><code>var mostProtein = reports.foods[0].name;</code></p>
 
-            <p>If you output that to the console, you would find that raw turkey breast has the most protein per serving
-                in
-                the
-                database. Thankfully, the second most protein-rich item in the database is roasted turkey breast, so you
-                won’t
-                have to eat raw poultry to get that beach body!</p>
+                <p>If you output that to the console, you would find that raw turkey breast has the most protein per
+                    serving
+                    in
+                    the
+                    database. Thankfully, the second most protein-rich item in the database is roasted turkey breast, so
+                    you
+                    won’t
+                    have to eat raw poultry to get that beach body!</p>
 
-            <h3>Searches and Lists</h3>
+                <h3>Searches and Lists</h3>
 
-            <p>One issue that we’ve come across in formatting our queries is that many of the parameters we need require
-                numeric
-                codes instead of their actual names. So how can we find out what elements correspond to what codes?</p>
+                <p>One issue that we’ve come across in formatting our queries is that many of the parameters we need
+                    require
+                    numeric
+                    codes instead of their actual names. So how can we find out what elements correspond to what
+                    codes?</p>
 
-            <p>The database lets you make queries for lists of foods, nutrients, and food groups, which will let you
-                find
-                the
-                code to place in our future queries. The basic way to format a list query is:
-                <code>http://api.nal.usda.gov/ndb/list?format=json&api_key=DEMO_KEY&amp;lt=g&sort=id</code>
-            </p>
-            <p>In this case, you will receive a list of food groups, sorted by ID. If you change the lt attribute to f
-                or n,
-                you
-                will instead get a list of foods or nutrients, respectively. A caveat for nutrients: if you’re looking
-                for
-                most
-                normal macronutrients, they will appear at the beginning of the list, but if you’re looking for
-                something
-                more
-                obscure, you’ll need to change the max parameter, which will default to only 50 items per list.
-            </p>
-            <p>What if you have a specific food in mind and want to find its NDB number using its name? The API also
-                provides a
-                search functionality at http://api.nal.usda.gov/ndb/search. You just enter the name of the food in the q
-                parameter and sort by relevance or name. To see how this can be used in your own app, check out
-                <a href="https://ndb.nal.usda.gov/ndb/search/list">the database search page</a>, and notice how the search box gives a drop-down box of
-                possibilities
-                as you enter text.</p></section>
-        <section>
-            <h2>Conclusion</h2>
+                <p>The database lets you make queries for lists of foods, nutrients, and food groups, which will let you
+                    find
+                    the
+                    code to place in our future queries. The basic way to format a list query is:
+                    <code>http://api.nal.usda.gov/ndb/list?format=json&api_key=DEMO_KEY&amp;lt=g&sort=id</code>
+                </p>
+                <p>In this case, you will receive a list of food groups, sorted by ID. If you change the lt attribute to
+                    f
+                    or n,
+                    you
+                    will instead get a list of foods or nutrients, respectively. A caveat for nutrients: if you’re
+                    looking
+                    for
+                    most
+                    normal macronutrients, they will appear at the beginning of the list, but if you’re looking for
+                    something
+                    more
+                    obscure, you’ll need to change the max parameter, which will default to only 50 items per list.
+                </p>
+                <p>What if you have a specific food in mind and want to find its NDB number using its name? The API also
+                    provides a
+                    search functionality at http://api.nal.usda.gov/ndb/search. You just enter the name of the food in
+                    the q
+                    parameter and sort by relevance or name. To see how this can be used in your own app, check out
+                    <a href="https://ndb.nal.usda.gov/ndb/search/list">the database search page</a>, and notice how the
+                    search box gives a drop-down box of
+                    possibilities
+                    as you enter text.</p></section>
+            <section>
+                <h2>Conclusion</h2>
 
-            <p>This start-up guide should give you the tools you need to get started making an app using the USDA
-                Nutrient
-                Databases. For example, you could try making a recipe calculator that determines the total calories for
-                a
-                list
-                of ingredients.</p>
+                <p>This start-up guide should give you the tools you need to get started making an app using the USDA
+                    Nutrient
+                    Databases. For example, you could try making a recipe calculator that determines the total calories
+                    for
+                    a
+                    list
+                    of ingredients.</p>
 
-            <p>For any more detailed technical information, see the <a href="https://ndb.nal.usda.gov/ndb/api/doc">full API documentation
-                <a>.</p>
-        </section>
+                <p>For any more detailed technical information, see the <a href="https://ndb.nal.usda.gov/ndb/api/doc">full
+                    API documentation
+                </a>.</p>
+            </section>
+        </div>
     </div>
 </div>
 
@@ -345,7 +423,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v0.4.1/dist/bootstrap-toc.min.js"></script>
 <script>
-    $(function() {
+    $(function () {
         var navSelector = '#toc';
         var $myNav = $(navSelector);
         Toc.init($myNav);
